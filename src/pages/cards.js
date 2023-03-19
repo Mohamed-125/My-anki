@@ -48,7 +48,7 @@ const Decks = () => {
     if (rendered) {
       filteredCardList = cardsList;
       console.log(cardsList);
-      if (id && cardsList.length > 0) {
+      if (id) {
         const cardsRef = doc(db, "users", id);
         updateDoc(cardsRef, {
           cards: cardsList,
