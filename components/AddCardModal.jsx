@@ -31,7 +31,7 @@ const AddCardModal = ({ setCardsList, setModalOpen }) => {
           <p className="font-bold  ">Back side</p>
           <textarea required placeholder="Enter text here" />
         </div>
-        <button type="submit" className="bg-[var(--black-color)]">
+        <button type="submit" className="bg-[var(--black-color)] mt-auto">
           Add Card
         </button>
       </form>

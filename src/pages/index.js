@@ -9,46 +9,31 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 import addToLocalStorage, { getSavedValue } from "@/LocalStorage";
 export default function Home() {
   const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     getRedirectResult(auth)
       .then((response) => {
-        setUser(response?.user);
+        if (response) {
+          setUser(response?.user);
+          addToLocalStorage("user", response?.user);
+
+          router.push(
+            {
+              pathname: `/cards`,
+              query: {
+                id: user.uid,
+              },
+            },
+            `/cards`
+          );
+        }
       })
       .catch((err) => console.log(err));
-  }, []);
 
-  useEffect(() => {
     if (getSavedValue("user")) setUser(getSavedValue("user"));
   }, []);
 
-  useEffect(() => {
-    if (user?.uid) {
-      addToLocalStorage("user", user);
-      const docRef = doc(db, "users", user.uid);
-      getDoc(docRef).then((res) => {
-        if (!res.exists()) {
-          setDoc(doc(db, "users", user.uid), {
-            name: user.displayName,
-            email: user.email,
-            cards: [],
-          });
-        }
-      });
-
-      router.push(
-        {
-          pathname: `/cards`,
-          query: {
-            id: user.uid,
-          },
-        },
-        `/cards`
-      );
-    }
-  }, [user]);
   return (
     <div
       style={{
