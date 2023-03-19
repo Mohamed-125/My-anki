@@ -23,6 +23,7 @@ const Decks = () => {
   useEffect(() => {
     setId(getSavedValue("user").uid);
   }, []);
+
   useEffect(() => {
     if (id) {
       getDoc(doc(db, "users", id)).then((res) => {
@@ -45,10 +46,12 @@ const Decks = () => {
   useEffect(() => {
     filteredCardList = cardsList;
     console.log(cardsList);
-    const cardsRef = doc(db, "users", id);
-    updateDoc(cardsRef, {
-      cards: cardsList,
-    });
+    if (id) {
+      const cardsRef = doc(db, "users", id);
+      updateDoc(cardsRef, {
+        cards: cardsList,
+      });
+    }
   }, [cardsList, id]);
 
   return (
