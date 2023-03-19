@@ -2,6 +2,10 @@ import React, { useEffect, useState, useRef } from "react";
 
 // import { useSpeechSynthesis } from "react-speech-kit";
 import { GiSpeaker } from "react-icons/gi";
+// [
+//   { frontSide: "", backSide: "", id: Math.random() * 4324324 }
+// ];
+
 const StudyCardModal = ({ cardsList, setStudyModal, setCardsList }) => {
   const [currentCardNum, setCurrentCardNum] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
