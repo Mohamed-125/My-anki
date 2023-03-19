@@ -61,7 +61,7 @@ export default function Home() {
         gap: "30px",
       }}
     >
-      <h1> Welcome tho My-anki</h1>
+      <h1> Welcome to My-anki</h1>
       <button className="bg-black mx-auto" onClick={SignIn}>
         Sign In / Login
       </button>
