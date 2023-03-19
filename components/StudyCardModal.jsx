@@ -68,7 +68,7 @@ const StudyCardModal = ({ cardsList, setStudyModal, setCardsList }) => {
             </button>
           </>
         )}
-        <div className="mt-auto flex gap-5">
+        <div className="mt-auto flex gap-5 flex-wrap">
           {showAnswer ? (
             <button className="bg-green-500" onClick={nextCardHandler}>
               Next Card

@@ -28,7 +28,7 @@ h2 {
   padding-block: 40px;
   max-width: 1260px;
   margin-inline: auto;
-  padding-inline: 50px;
+  padding-inline: 40px;
 }
 
 button {
@@ -126,9 +126,10 @@ textarea {
   top: 0;
   left: 0;
 }
+
 @media (max-width: 600px) {
   .container {
-    padding-inline: 20px;
+    padding-inline: 10px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
@@ -138,7 +139,13 @@ textarea {
   }
 
   h2 {
-    font-size: 22px;
+    font-size: 19px;
     font-weight: 600;
+  }
+  button {
+    padding-block: 13px;
+    padding-inline: 15px;
+    font-size: 12px;
+    min-width: 100px;
   }
 }
