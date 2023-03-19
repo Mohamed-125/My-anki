@@ -5,7 +5,7 @@ import AddCardModal from "../../components/AddCardModal";
 import EditCardModal from "../../components/EditCardModal";
 import StudyCardModal from "../../components/StudyCardModal";
 import { useRouter } from "next/router";
-import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { getSavedValue } from "@/LocalStorage";
 import { signOut } from "firebase/auth";
@@ -43,8 +43,14 @@ const Decks = () => {
 
   let filteredCardList = cardsList.filter((card) => {
     if (
-      card.frontSide.trim().toLowerCase().includes(searchWord.trim()) ||
-      card.backSide.trim().toLowerCase().includes(searchWord.trim())
+      card.frontSide
+        .trim()
+        .toLowerCase()
+        .includes(searchWord.trim().toLowerCase()) ||
+      card.backSide
+        .trim()
+        .toLowerCase()
+        .includes(searchWord.trim().toLowerCase())
     ) {
       return card;
     }
@@ -54,7 +60,6 @@ const Decks = () => {
     if (id) {
       if (rendered) {
         filteredCardList = cardsList;
-        console.log(cardsList);
 
         const cardsRef = doc(db, "users", id);
         updateDoc(cardsRef, {
@@ -82,12 +87,10 @@ const Decks = () => {
           className="mt-10  bg-red-500"
           type="button"
           onClick={() => {
-            signOut(auth)
-              .then((res) => {
-                localStorage.removeItem("user");
-                router.push("/");
-              })
-              .catch((err) => console.log(err));
+            signOut(auth).then((res) => {
+              localStorage.removeItem("user");
+              router.push("/");
+            });
           }}
         >
           Log Out
