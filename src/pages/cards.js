@@ -33,7 +33,9 @@ const Decks = () => {
     if (id) {
       getDoc(doc(db, "users", id)).then((res) => {
         if (res.exists()) {
-          setCardsList(res.data().cards);
+          setCardsList(
+            res.data().cards.sort((a, b) => 0.5 - Math.random() * 0.9)
+          );
         }
       });
     }
