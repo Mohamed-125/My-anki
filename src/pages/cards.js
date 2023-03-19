@@ -16,16 +16,21 @@ const Decks = () => {
   const [searchWord, setSearchWord] = useState("");
   const [editModal, setEditModal] = useState({ open: false, data: {} });
   const [cardsList, setCardsList] = useState([]);
-  const [id, setId] = useState(getSavedValue("user").uid);
+  const [id, setId] = useState();
   const inputRef = useRef();
   const router = useRouter();
 
   useEffect(() => {
-    getDoc(doc(db, "users", id)).then((res) => {
-      if (res.exists()) {
-        setCardsList(res.data().cards);
-      }
-    });
+    setId(getSavedValue("user").uid);
+  }, []);
+  useEffect(() => {
+    if (id) {
+      getDoc(doc(db, "users", id)).then((res) => {
+        if (res.exists()) {
+          setCardsList(res.data().cards);
+        }
+      });
+    }
   }, [id]);
 
   let filteredCardList = cardsList.filter((card) => {
