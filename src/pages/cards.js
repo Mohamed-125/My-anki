@@ -22,7 +22,11 @@ const Decks = () => {
   const router = useRouter();
 
   useEffect(() => {
-    setId(getSavedValue("user").uid);
+    if (!getSavedValue("user")?.uid) {
+      router.push("/");
+    } else {
+      setId(getSavedValue("user").uid);
+    }
   }, []);
 
   useEffect(() => {

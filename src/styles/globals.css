@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
 :root {
   --gray-color: rgb(239, 239, 239);
   --black-color: rgb(48, 47, 55);
@@ -71,14 +74,13 @@ textarea {
   position: absolute;
   top: 50%;
   left: 50%;
-  max-height: 90%;
+  min-height: 80%;
   transform: translate(-50%, -50%);
   flex-direction: column;
   gap: 30px;
   padding: 30px 40px;
   font-size: 20px;
   z-index: 50px;
-  min-height: 300px;
 }
 
 .modal button {
