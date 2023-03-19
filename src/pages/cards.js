@@ -45,17 +45,18 @@ const Decks = () => {
   });
 
   useEffect(() => {
-    if (rendered) {
-      filteredCardList = cardsList;
-      console.log(cardsList);
-      if (id) {
+    if (id) {
+      if (rendered) {
+        filteredCardList = cardsList;
+        console.log(cardsList);
+
         const cardsRef = doc(db, "users", id);
         updateDoc(cardsRef, {
           cards: cardsList,
         });
+      } else {
+        setRendered(true);
       }
-    } else {
-      setRendered(true);
     }
   }, [cardsList, id]);
 
@@ -90,11 +91,9 @@ const Decks = () => {
         <h2>Cards {cardsList.length}</h2>
         <div className="flex gap-3 items-center">
           <button
-            disabled={filteredCardList.length !== 0 ? false : true}
+            disabled={cardsList.length !== 0 ? false : true}
             style={
-              filteredCardList.length === 0
-                ? { opacity: "0.5" }
-                : { opacity: "1" }
+              cardsList.length === 0 ? { opacity: "0.5" } : { opacity: "1" }
             }
             className="bg-[var(--cyan-color)]"
             onClick={() => {
