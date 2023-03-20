@@ -197,4 +197,7 @@ textarea {
     font-size: 12px;
     min-width: 100px;
   }
+  p {
+    font-size: 15px !important;
+  }
 }

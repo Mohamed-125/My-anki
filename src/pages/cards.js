@@ -227,13 +227,13 @@ const Decks = () => {
                 }
               }}
               key={card.id}
-              className="flex gap-10 cursor-pointer hover:bg-[var(--gray-color)] justify-between items-center h-14 px-7 rounded-lg"
+              className="flex gap-10 cursor-pointer hover:bg-[var(--gray-color)] justify-between items-center h-14 px-7 sm:p-1 rounded-lg"
             >
               <p>{card.frontSide}</p>
-              <div className="flex gap-3 items-center">
+              <div className="flex gap-3 sm:gap-2 items-center">
                 <p className="text-right">{card.backSide}</p>
                 <button
-                  className="!p-0 text-lg hover:bg-[var(--cyan-color)] speaker-button"
+                  className="!p-0 text-lg min-w-0 hover:bg-[var(--cyan-color)] speaker-button"
                   type="button"
                   onClick={(e) => {
                     const backSideWord = new SpeechSynthesisUtterance();
