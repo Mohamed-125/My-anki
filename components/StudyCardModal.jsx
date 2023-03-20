@@ -1,9 +1,17 @@
 import React, { useEffect, useState, useRef } from "react";
 import { GiSpeaker } from "react-icons/gi";
 
-const StudyCardModal = ({ cardsList, setStudyModal, setCardsList }) => {
+const StudyCardModal = ({
+  cardsList,
+  setStudyModal,
+  setCardsList,
+  setEditModal,
+  showAnswerButtonRef,
+  nextCardButtonRef,
+  showAnswer,
+  setShowAnswer,
+}) => {
   const [currentCardNum, setCurrentCardNum] = useState(0);
-  const [showAnswer, setShowAnswer] = useState(false);
 
   const backSideWord = new SpeechSynthesisUtterance();
   backSideWord.lang = "de-DE";
@@ -16,15 +24,16 @@ const StudyCardModal = ({ cardsList, setStudyModal, setCardsList }) => {
   };
   const nextCardHandler = () => {
     if (currentCardNum === cardsList.length - 1) {
+      setShowAnswer(false);
       setStudyModal(false);
       setCurrentCardNum(0);
     } else {
+      setShowAnswer(false);
       setCurrentCardNum((pre) => pre + 1);
     }
   };
 
   useEffect(() => {
-    setShowAnswer(false);
     document
       .querySelector(".progress-bar")
       .style.setProperty(
@@ -64,12 +73,17 @@ const StudyCardModal = ({ cardsList, setStudyModal, setCardsList }) => {
         )}
         <div className="mt-auto flex gap-5 flex-wrap">
           {showAnswer ? (
-            <button className="bg-green-500" onClick={nextCardHandler}>
+            <button
+              ref={nextCardButtonRef}
+              className="bg-green-500"
+              onClick={nextCardHandler}
+            >
               Next Card
             </button>
           ) : (
             <button
               className="bg-[var(--black-color)]"
+              ref={showAnswerButtonRef}
               onClick={() => setShowAnswer((pre) => !pre)}
             >
               Show answer
@@ -82,6 +96,25 @@ const StudyCardModal = ({ cardsList, setStudyModal, setCardsList }) => {
             id={cardsList[currentCardNum]?.id}
           >
             Delete This Card
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setEditModal(() => {
+                return {
+                  open: true,
+                  data: {
+                    frontSide: cardsList[currentCardNum]?.frontSide,
+                    backSide: cardsList[currentCardNum]?.backSide,
+                    id: cardsList[currentCardNum]?.id,
+                  },
+                };
+              });
+            }}
+            className="bg-[var(--cyan-color)]"
+            id={cardsList[currentCardNum]?.id}
+          >
+            Edit This Card
           </button>
         </div>
       </div>

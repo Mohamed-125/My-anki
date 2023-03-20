@@ -12,26 +12,37 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    getRedirectResult(auth)
-      .then((response) => {
-        if (response) {
-          setUser(response?.user);
-          addToLocalStorage("user", response?.user);
+    if (getSavedValue("user")) {
+      setUser(getSavedValue("user"));
+      router.push(
+        {
+          pathname: `/cards`,
+          query: {
+            id: user.uid,
+          },
+        },
+        `/cards`
+      );
+    } else {
+      getRedirectResult(auth)
+        .then((response) => {
+          if (response) {
+            setUser(response?.user);
+            addToLocalStorage("user", response?.user);
 
-          router.push(
-            {
-              pathname: `/cards`,
-              query: {
-                id: user.uid,
+            router.push(
+              {
+                pathname: `/cards`,
+                query: {
+                  id: user.uid,
+                },
               },
-            },
-            `/cards`
-          );
-        }
-      })
-      .catch((err) => console.log(err));
-
-    if (getSavedValue("user")) setUser(getSavedValue("user"));
+              `/cards`
+            );
+          }
+        })
+        .catch((err) => console.log(err));
+    }
   }, []);
 
   return (

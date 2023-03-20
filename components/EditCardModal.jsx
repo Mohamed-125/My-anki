@@ -1,7 +1,17 @@
 import React, { useEffect, useState, useRef } from "react";
+import { GiSpeaker } from "react-icons/gi";
 
-const EditCardModal = ({ setCardsList, setEditModal, data }) => {
-  console.log(data);
+const EditCardModal = ({
+  setCardsList,
+  setEditModal,
+  data,
+  editCardButtonRef,
+}) => {
+  const backSideWord = new SpeechSynthesisUtterance();
+  backSideWord.lang = "de-DE";
+  backSideWord.voice = speechSynthesis.getVoices()[6];
+  backSideWord.rate = 0.9;
+
   const closeModal = (e) => {
     if (e.target.classList.contains("overlay")) {
       setEditModal((pre) => {
@@ -10,13 +20,11 @@ const EditCardModal = ({ setCardsList, setEditModal, data }) => {
     }
   };
 
-  const addCardHandler = (e) => {
+  const editCardHandler = (e) => {
     e.preventDefault();
     setCardsList((pre) =>
       pre.map((card) => {
-        console.log(+card.id === +data.id, card.id, data.id);
         if (card.id === data.id) {
-          console.log("founded");
           return {
             ...card,
             frontSide: frontInputRef.current.value,
@@ -48,7 +56,7 @@ const EditCardModal = ({ setCardsList, setEditModal, data }) => {
 
   return (
     <div className="overlay" onClick={closeModal}>
-      <form onSubmit={addCardHandler} className="modal">
+      <form onSubmit={editCardHandler} className="modal">
         <div>
           <p className="font-bold">Front side</p>
           <textarea
@@ -58,11 +66,25 @@ const EditCardModal = ({ setCardsList, setEditModal, data }) => {
           />
         </div>
         <div>
-          <p className="font-bold  ">Back side</p>
+          <p className="font-bold">Back side</p>
           <textarea required placeholder="Enter text here" ref={backInputRef} />
         </div>
+        <button
+          className="!p-0"
+          type="button"
+          onClick={() => {
+            backSideWord.text = backInputRef.current.value;
+            window.speechSynthesis.speak(backSideWord);
+          }}
+        >
+          <GiSpeaker className="text-5xl mx-auto !text-[var(--black-color)]" />
+        </button>
         <div className="mt-auto flex gap-5">
-          <button type="submit" className="bg-[var(--black-color)]">
+          <button
+            type="submit"
+            ref={editCardButtonRef}
+            className="bg-[var(--black-color)] update-cart-btn"
+          >
             Update Card
           </button>
           <button

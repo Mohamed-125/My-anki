@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const AddCardModal = ({ setCardsList, setModalOpen }) => {
+const AddCardModal = ({ setCardsList, setModalOpen, buttonRef }) => {
+  const containerRef = useRef();
+
   const closeModal = (e) => {
     if (e.target.classList.contains("overlay")) {
       setModalOpen((pre) => !pre);
     }
   };
+
+  buttonRef?.current?.click();
 
   const addCardHandler = (e) => {
     e.preventDefault();
@@ -22,7 +26,7 @@ const AddCardModal = ({ setCardsList, setModalOpen }) => {
 
   return (
     <div className="overlay" onClick={closeModal}>
-      <form onSubmit={addCardHandler} className="modal">
+      <form onSubmit={addCardHandler} ref={containerRef} className="modal  ">
         <div>
           <p className="font-bold  ">Front side</p>
           <textarea required placeholder="Enter text here" />
@@ -31,7 +35,11 @@ const AddCardModal = ({ setCardsList, setModalOpen }) => {
           <p className="font-bold  ">Back side</p>
           <textarea required placeholder="Enter text here" />
         </div>
-        <button type="submit" className="bg-[var(--black-color)] mt-auto">
+        <button
+          type="submit"
+          className="bg-[var(--black-color)] mt-auto  "
+          ref={buttonRef}
+        >
           Add Card
         </button>
       </form>
