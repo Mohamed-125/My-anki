@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 const AddCardModal = ({ setCardsList, setModalOpen, buttonRef }) => {
   const containerRef = useRef();
-
+  const AddCartfrontSideTextarea = useRef();
   const closeModal = (e) => {
     if (e.target.classList.contains("overlay")) {
       setModalOpen((pre) => !pre);
@@ -24,12 +24,19 @@ const AddCardModal = ({ setCardsList, setModalOpen, buttonRef }) => {
     setModalOpen((pre) => !pre);
   };
 
+  useEffect(() => {
+    AddCartfrontSideTextarea.current.focus();
+  }, []);
   return (
     <div className="overlay" onClick={closeModal}>
       <form onSubmit={addCardHandler} ref={containerRef} className="modal  ">
         <div>
           <p className="font-bold  ">Front side</p>
-          <textarea required placeholder="Enter text here" />
+          <textarea
+            required
+            ref={AddCartfrontSideTextarea}
+            placeholder="Enter text here"
+          />
         </div>
         <div>
           <p className="font-bold  ">Back side</p>

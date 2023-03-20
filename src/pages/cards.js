@@ -43,10 +43,8 @@ const Decks = () => {
       }
       if (studyModal) {
         if (showAnswer) {
-          console.log("show answer");
           nextCardButtonRef?.current?.click();
         } else if (!showAnswer) {
-          console.log(" not show answer");
           showAnswerButtonRef?.current?.click();
         }
       }
